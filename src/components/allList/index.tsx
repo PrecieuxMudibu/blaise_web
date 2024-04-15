@@ -1,20 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ProfessorRow from '../row';
 import ProfessorHeader from '../header';
+import ProfessorRow from '../row';
 import globalStore from '@/store';
 import { FaPlus } from 'react-icons/fa6';
 import ModalContainer from '../modal';
 import CreateProfessor from '../create';
-import { IoCheckmark, IoClose } from 'react-icons/io5';
-import { RiDeleteBin5Line } from 'react-icons/ri';
 import axios from 'axios';
 import {
     API_URL,
     axiosConfig,
     notifySuccess,
-    updateItemInTheStore
 } from '@/helpers';
-import Pagination from '../pagination';
 import DeleteContainer from '../deleteContainer';
 import { LayoutContext } from '../layout';
 export default function ProfessorsAllList({ user }: any) {
@@ -104,7 +100,10 @@ export default function ProfessorsAllList({ user }: any) {
     },[])
     return (
         <div>
-            <div className="flex items-center justify-end">
+            <div className="flex items-center justify-end mt-10">
+                 <h2 className="w-full mb-4 text-basicColorDark text-lg font-medium">
+                    Professeurs
+                </h2>
                
                 <div
                     className={`w-fit text-basicColor mb-4 px-4 py-2 flex justify-between bg-white rounded-xl`}
@@ -113,10 +112,6 @@ export default function ProfessorsAllList({ user }: any) {
                         onClick={openModal}
                         className="mr-1 cursor-pointer hover:text-cyan-400"
                     />
-                    {/* <RiDeleteBin5Line
-                        className="mr-1 text-lg cursor-pointer hover:text-alertColor"
-                        onClick={openDeleteModal}
-                    /> */}
 
                 </div>
             </div>

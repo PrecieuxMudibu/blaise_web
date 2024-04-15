@@ -18,6 +18,7 @@ interface InputProps {
     onChange: any;
     required: boolean;
     type: string;
+    placeholder?: string;
     value: string | number;
 }
 export default function Input({
@@ -28,6 +29,7 @@ export default function Input({
     name,
     required = false,
     type = '',
+    placeholder,
     onChange,
     value
 }: InputProps) {
@@ -50,6 +52,7 @@ export default function Input({
                 name={name}
                 onChange={onChange}
                 variant="outlined"
+                placeholder={placeholder}
                 value={value}
             />
 
@@ -73,6 +76,7 @@ export default function Input({
                 variant="outlined"
                 value={value}
                 type={type}
+                placeholder={placeholder}
             />
             {errorLabel && (
                 <p className="text-red-600 text-xs mb-2">{errorLabel}</p>
@@ -109,6 +113,7 @@ export default function Input({
                     label=""
                     name={name}
                     onChange={onChange}
+                    placeholder={placeholder}
                     value={value}
                 />
             </FormControl>
