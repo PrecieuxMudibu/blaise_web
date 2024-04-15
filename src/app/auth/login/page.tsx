@@ -60,56 +60,32 @@ export default function Login() {
 
     const onSubmit = handleSubmit(async (e:any) => {
         setLoaderIsVisible(true);
-        console.log("PASSE TEST",e)
-        // e.preventDefault();
+        const loginRoute = API_URL + `/users?filters[password_2][$eq]=${data.password}&filters[email][$eq]=${data.email}`;
+
+        console.log("ICI", loginRoute)
         
-
-        
-
-
-        const loginRoute = API_URL + '/authentification/login';
-
         try {
-            // await axios
-            //     .post(
-            //         loginRoute,
-            //         {
-            //             data
-            //         },
-            //         axiosConfig
-            //     )
-            //     .then((response: any) => {
-            //         localStorage.setItem('token', response.data.jwt);
-            //         setUser(response.data.user);
-            //         setCookie('token', response.data.jwt, 3);
-            //         push(`/dashboard`);
-            //         setLoaderIsVisible(false);
-            //     })
-            //     .catch((error: any) => {
-            //         console.log(error);
-            //         notifyError("Quelque chose s'est mal passé.", 'login');
-            //         setLoaderIsVisible(false);
-            //     });
+            await axios
+                .get(
+                    loginRoute,
+                    axiosConfig
+                )
+                .then((response: any) => {
+                    console.log("response", response)
 
-            if((data.email=== "blaise@gmail.com" && data.password=== "123456") || (data.email=== "sukama@gmail.com" && data.password=== "000000")) {
-                push("/dashboard")
-            }
-            else {
-                alert('Identifiants incorrect')
-                // notifyError("Identifiants incorrect", 'login');
-                
-            }
+                    if(response.data.length !==0) {
+                        push(`/dashboard`);
+                    } else {
+                        alert('Utilisateur incorrect')
+                    }
+                    
                     setLoaderIsVisible(false);
+                })
+                .catch((error: any) => {
+                    console.log(error);
+                    setLoaderIsVisible(false);
+                });
 
-            console.log("PASSE")
-
-            // else {
-            //     setValue("password", "")
-            //     setValue("email", "")
-            //     if(data.email ==="" || data.password ==="") {
-            //         onSubmit(e)
-            //     }
-            // }
         } catch (error: any) {
             notifyError("Quelque chose s'est mal passé", 'login');
             setLoaderIsVisible(false);
@@ -132,17 +108,10 @@ export default function Login() {
             
         <ToastContainer containerId={'login'} />
             
-            {/* <ToastContainer enableMultiContainer={true} containerId={'login'} /> */}
 
             <div className="m-auto">
-                {/* <div className="flex justify-center mb-6">
-                    <Image src={Logo} alt="Logo" width={280} height={280} />
-                </div> */}
                 <div className="sm:min-w-[490px] bg-white px-10 py-10 rounded">
                     <div>
-                        {/* <h2 className="text-2xl font-semibold text-center">
-                            Connexion
-                        </h2> */}
                         <p className="mt-2 text-lg text-gray-400 text-center">
                             Veuillez entrer vos identifiants
                         </p>
