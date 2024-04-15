@@ -1,12 +1,12 @@
 'use client';
 
 import axios from 'axios';
-import Link from 'next/link';
+import { Suspense } from 'react'
 import Image from 'next/image';
 // import Logo from '@/public/logoITM.png';
 import { useContext, useEffect, useState } from 'react';
 import Input from '@/components/input';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { API_URL, axiosConfig, notifyError, setCookie } from '@/helpers';
 import { ToastContainer } from 'react-toastify';
 import Loader from '@/components/loader';
@@ -23,9 +23,8 @@ interface Login {
     password: string;
 }
 
-export default function Login() {
+export default function LoginPage() {
     const { push } = useRouter();
-    const { setUser } = globalStore(state => state);
     const {
         setValue,
         handleSubmit,
@@ -34,18 +33,12 @@ export default function Login() {
         resolver: yupResolver(schema)
     });
 
-    const searchParams = useSearchParams();
-    const token = searchParams.get('token');
-    const from = searchParams.get('from');
-    const to = searchParams.get('to');
-
-
-    useEffect(() => {}, []);
 
     const [data, setData] = useState<Login>({
         email: '',
         password: ''
     });
+
     const [loaderIsVisible, setLoaderIsVisible] = useState<boolean>(false);
 
     const onChange = (e: any) => {
@@ -92,7 +85,7 @@ export default function Login() {
         }
     });
     return (
-        <>
+        <Suspense>
 
           <Image
                 src={havilaImage}
@@ -141,7 +134,7 @@ export default function Login() {
                             <Input
                                 disabled={false}
                                 errorLabel={
-                                    errors.password ? "Veuillez entrer un mot de passe" : ""
+                                    errors.password ? "Veuillez entrer un mot de passe à six caractères." : ""
                                 }
                                 labelPosition="exterior"
                                 label="Mot de passe"
@@ -185,7 +178,7 @@ export default function Login() {
                 </div>
             </div>
         </div>
-        </>
+        </Suspense>
        
     );
 }
