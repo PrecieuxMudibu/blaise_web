@@ -204,7 +204,7 @@ export default function UpdateProfessor({ closeModal, professor, user }: any) {
                         value={professorToUpdate.phoneNumber}
                     />
 
-                    <SelectDate
+                    {/* <SelectDate
                         defaultValue={professorToUpdate?.birthDate}
                         errorLabel={
                             ""
@@ -221,6 +221,20 @@ export default function UpdateProfessor({ closeModal, professor, user }: any) {
                         required={false}
                         labelPosition="external"
                         value={professorToUpdate?.birthDate}
+                    /> */}
+
+                    <Input
+                        disabled={false}
+                        errorLabel={
+                            ""
+                        }
+                        labelPosition="exterior"
+                        label="Matricule"
+                        name="employeeId"
+                        onChange={onChange}
+                        required={false}
+                        type=""
+                        value={professorToUpdate.employeeId}
                     />
 
 

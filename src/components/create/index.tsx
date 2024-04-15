@@ -198,7 +198,21 @@ export default function CreateProfessor({ closeModal, user }: any) {
                         value={professorToCreate.phoneNumber}
                     />
 
-                    <SelectDate
+                    <Input
+                        disabled={false}
+                        errorLabel={
+                            ""
+                        }
+                        labelPosition="exterior"
+                        label="Matricule"
+                        name="employeeId"
+                        onChange={onChange}
+                        required={false}
+                        type=""
+                        value={professorToCreate.employeeId}
+                    />
+
+                    {/* <SelectDate
                         defaultValue={professorToCreate?.birthDate}
                         errorLabel={
                             ""
@@ -215,7 +229,7 @@ export default function CreateProfessor({ closeModal, user }: any) {
                         required={false}
                         labelPosition="external"
                         value={professorToCreate?.birthDate}
-                    />
+                    /> */}
 
 
 

@@ -3,8 +3,8 @@ import * as yup from 'yup';
 
 const schema = yup
     .object({
-        phoneNumber: yup.string().min(10).required(),
-        password: yup.string().min(4).required()
+        email: yup.string().email().required(),
+        password: yup.string().min(6).required()
     })
     .required();
 

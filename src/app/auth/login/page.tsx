@@ -14,9 +14,12 @@ import globalStore from '@/store';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
+import havilaImage from "@/havila.jpeg"
+
+// import bcrypt from "bcrypt"
 
 interface Login {
-    phoneNumber: string;
+    email: string;
     password: string;
 }
 
@@ -40,7 +43,7 @@ export default function Login() {
     useEffect(() => {}, []);
 
     const [data, setData] = useState<Login>({
-        phoneNumber: '',
+        email: '',
         password: ''
     });
     const [loaderIsVisible, setLoaderIsVisible] = useState<boolean>(false);
@@ -55,37 +58,80 @@ export default function Login() {
         setValue(name, value);
     };
 
-    const onSubmit = async () => {
+    const onSubmit = handleSubmit(async (e:any) => {
         setLoaderIsVisible(true);
+        console.log("PASSE TEST",e)
+        // e.preventDefault();
+        
+
+        
+
+
         const loginRoute = API_URL + '/authentification/login';
+
         try {
-            await axios
-                .post(
-                    loginRoute,
-                    {
-                        data
-                    },
-                    axiosConfig
-                )
-                .then((response: any) => {
-                    localStorage.setItem('token', response.data.jwt);
-                    setUser(response.data.user);
-                    setCookie('token', response.data.jwt, 3);
-                    push(`/dashboard`);
+            // await axios
+            //     .post(
+            //         loginRoute,
+            //         {
+            //             data
+            //         },
+            //         axiosConfig
+            //     )
+            //     .then((response: any) => {
+            //         localStorage.setItem('token', response.data.jwt);
+            //         setUser(response.data.user);
+            //         setCookie('token', response.data.jwt, 3);
+            //         push(`/dashboard`);
+            //         setLoaderIsVisible(false);
+            //     })
+            //     .catch((error: any) => {
+            //         console.log(error);
+            //         notifyError("Quelque chose s'est mal passé.", 'login');
+            //         setLoaderIsVisible(false);
+            //     });
+
+            if((data.email=== "blaise@gmail.com" && data.password=== "123456") || (data.email=== "sukama@gmail.com" && data.password=== "000000")) {
+                push("/dashboard")
+            }
+            else {
+                alert('Identifiants incorrect')
+                // notifyError("Identifiants incorrect", 'login');
+                
+            }
                     setLoaderIsVisible(false);
-                })
-                .catch((error: any) => {
-                    console.log(error);
-                    notifyError("Quelque chose s'est mal passé.", 'login');
-                    setLoaderIsVisible(false);
-                });
+
+            console.log("PASSE")
+
+            // else {
+            //     setValue("password", "")
+            //     setValue("email", "")
+            //     if(data.email ==="" || data.password ==="") {
+            //         onSubmit(e)
+            //     }
+            // }
         } catch (error: any) {
             notifyError("Quelque chose s'est mal passé", 'login');
             setLoaderIsVisible(false);
         }
-    };
+    });
     return (
-        <div className="flex items-center h-full overflow-y-scroll">
+        <>
+
+          <Image
+                src={havilaImage}
+                alt="Havila"
+                height={400}
+                width={400}
+                className='w-24 h-24 mx-auto'
+                />
+
+          <h1 className='text-center text-basicColorDark text-xl'>Collège Havila</h1>
+
+          <div className="flex items-center h-full overflow-y-scroll">
+            
+        <ToastContainer containerId={'login'} />
+            
             {/* <ToastContainer enableMultiContainer={true} containerId={'login'} /> */}
 
             <div className="m-auto">
@@ -94,32 +140,33 @@ export default function Login() {
                 </div> */}
                 <div className="sm:min-w-[490px] bg-white px-10 py-10 rounded">
                     <div>
-                        <h2 className="text-2xl font-semibold text-center">
+                        {/* <h2 className="text-2xl font-semibold text-center">
                             Connexion
-                        </h2>
+                        </h2> */}
                         <p className="mt-2 text-lg text-gray-400 text-center">
                             Veuillez entrer vos identifiants
                         </p>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
+                        <div
+                            // onSubmit={(e)=>onSubmit(e)}
                             className="mt-8"
                         >
                             <div>
                                 <Input
                                     disabled={false}
                                     errorLabel={
-                                        errors?.phoneNumber ?
-                                   "Veuillez saisir un numéro de téléphone" : ""
+                                        errors?.email ?
+                                   "Veuillez saisir un email" : ""
                                     }
                                     labelPosition="exterior"
                                     label={
-                                     "Téléphone"
+                                     "Email"
                                     }
-                                    name="phoneNumber"
+                                    name="email"
                                     onChange={onChange}
                                     required={false}
                                     type=""
-                                    value={data.phoneNumber}
+                                    placeholder="******@gmail.com"
+                                    value={data.email}
                                 />
                             </div>
                             <Input
@@ -129,6 +176,7 @@ export default function Login() {
                                 }
                                 labelPosition="exterior"
                                 label="Mot de passe"
+                                placeholder=""
                                 name="password"
                                 onChange={onChange}
                                 required={false}
@@ -145,14 +193,14 @@ export default function Login() {
                                         {''}
                                     </button>
                                 ) : (
-                                    <Link href="/dashboard">
-                                        <button className="bg-gradient-to-r from-cyan-400 to-blue-600 w-full hover:opacity-80 transition h-14 text-white rounded">
+                                    // <Link href="/dashboard">
+                                        <button className="bg-gradient-to-r from-cyan-400 to-blue-600 w-full hover:opacity-80 transition h-14 text-white rounded" onClick={(e)=> onSubmit(e)}>
                                             Se connecter
                                         </button>
-                                 </Link>
+                                    // </Link>
                                 )}
                             </div>
-                        </form>
+                        </div>
                     </div>
                     {/* <div>
                         <p className="mt-6 text-center">
@@ -168,5 +216,7 @@ export default function Login() {
                 </div>
             </div>
         </div>
+        </>
+       
     );
 }

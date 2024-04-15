@@ -56,11 +56,6 @@ export default function ProfessorRow({ professor, index, user }: any) {
         await axios
             .delete(
                 deleteProfessorRoute,
-                // {
-                //     data: {
-                //         active: false
-                //     }
-                // },
                 axiosConfig
             )
             .then((response: any) => {
@@ -83,14 +78,6 @@ export default function ProfessorRow({ professor, index, user }: any) {
    
     return (
         <div className="w-full border-t py-2 flex justify-between items-center text-basicColor">
-            {/* <div className="mr-4">
-                <Checkbox
-                    checked={professor?.checked}
-                    onClick={() => {
-                        check(professors, setProfessors, index);
-                    }}
-                />
-            </div> */}
             <h3 className="w-[30%] max-[400px]:w-[80%] sm:w-[22%] flex items-center text-sm text-basicColorDark font-medium">
                 <Image
                     src={professor?.picture || ""}
@@ -104,11 +91,10 @@ export default function ProfessorRow({ professor, index, user }: any) {
             <h3 className="hidden sm:block w-[14%] text-sm">
                 {professor?.lastName}
             </h3>
-            {/* [1].document.data.attributes.name */}
             <p
                 className="max-[400px]:hidden w-[30%] sm:w-[18%] text-sm"
             >
-               {professor?.firstName}PP3
+               {professor?.firstName}
             </p>
             <h3 className="hidden sm:flex w-[17%] items-center text-sm text-basicColorDark">
                 <span>{professor?.class}</span>
@@ -120,7 +106,7 @@ export default function ProfessorRow({ professor, index, user }: any) {
                 {(professor?.address)}
             </h3>
             <h3 className="w-[20%] sm:w-[10%] text-sm font-medium">
-            {formatDate(professor?.birthDate)}
+            {(professor?.employeeId)}
             </h3>
             <p className="w-[20%] sm:w-[10%] flex text-sm">
                 <MdModeEditOutline
