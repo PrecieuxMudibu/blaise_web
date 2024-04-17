@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-export const API_URL = process.env.NEXT_PUBLIC_API;
+export const API_URL = process.env.NEXT_PUBLIC_API || "https://blaise-api.onrender.com/api";
 export const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 // export const API_URL = 'https://api.hr.itmafrica.com/api';
 
