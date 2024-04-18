@@ -116,7 +116,7 @@ export default function ProfessorsAllList({ user }: any) {
                 </div>
             </div>
 
-            <table className="w-full bg-white rounded-xl px-6">
+            <div className="w-full bg-white rounded-xl px-6">
                 <ProfessorHeader />
                 {professors?.map((professor: any, index: number) => (
                     <ProfessorRow
@@ -125,7 +125,7 @@ export default function ProfessorsAllList({ user }: any) {
                         user={user}
                     />
                 ))}
-            </table>
+            </div>
             {/* <Pagination totalPages={1} /> */}
 
             <ModalContainer
