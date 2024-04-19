@@ -126,7 +126,6 @@ export default function ProfessorsAllList({ user }: any) {
                     />
                 ))}
             </div>
-            {/* <Pagination totalPages={1} /> */}
 
             <ModalContainer
                 isOpen={modalStatusVisibility}
